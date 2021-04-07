@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 import java.net.URI;
 
@@ -48,14 +47,8 @@ public class ProfileController {
 
     @PutMapping
     Publisher<ResponseEntity<ProfileDto>> updateById(@RequestBody final ProfileDto profile) {
-        return Mono
-                .just(profile)
-                .flatMap(p -> this.profileService.update(profile))
-                .map(p -> ResponseEntity
-                        .ok()
-                        .contentType(APPLICATION_JSON)
-                        .build()
-                );
+        return this.profileService.update(profile)
+                .map(ResponseEntity::ok);
     }
 
     @DeleteMapping("/{id}")
