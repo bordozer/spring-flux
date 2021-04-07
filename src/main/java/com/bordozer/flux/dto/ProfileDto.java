@@ -7,18 +7,18 @@ import org.immutables.value.Value;
 import javax.annotation.CheckForNull;
 
 @JsonDeserialize(
-        builder = ImmutableProfile.Builder.class
+        builder = ImmutableProfileDto.Builder.class
 )
 @JsonIgnoreProperties({"initialized", "initBits"})
 @Value.Immutable
-public interface Profile {
+public interface ProfileDto {
 
     @CheckForNull
     Long getId();
 
     String getEmail();
 
-    static ImmutableProfile.Builder builder() {
-        return new ImmutableProfile.Builder();
+    static ImmutableProfileDto.Builder builder() {
+        return new ImmutableProfileDto.Builder();
     }
 }

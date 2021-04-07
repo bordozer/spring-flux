@@ -1,7 +1,7 @@
 package com.bordozer.flux.service;
 
 import com.bordozer.flux.converter.ProfileConverter;
-import com.bordozer.flux.dto.Profile;
+import com.bordozer.flux.dto.ProfileDto;
 import com.bordozer.flux.event.ProfileCreatedEvent;
 import com.bordozer.flux.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,32 +20,31 @@ public class ProfileServiceImpl implements ProfileService {
     private final ProfileRepository profileRepository;
 
     @Override
-    public Flux<Profile> all() {
+    public Flux<ProfileDto> all() {
         return profileRepository.findAll()
-                .map(ProfileConverter::convert);
+                .map(ProfileConverter::toDto);
     }
 
     @Override
-    public Mono<Profile> findById(final Long id) {
+    public Mono<ProfileDto> findById(final Long id) {
         return profileRepository.findById(id)
-                .map(ProfileConverter::convert);
+                .map(ProfileConverter::toDto);
     }
 
     @Override
-    public Mono<Profile> create(String email) {
+    public Mono<ProfileDto> create(String email) {
         return this.profileRepository
-                .save(ProfileConverter.convert(email))
+                .save(ProfileConverter.toEntity(email))
                 .doOnSuccess(profile -> this.publisher.publishEvent(new ProfileCreatedEvent(profile)))
-                .map(ProfileConverter::convert);
+                .map(ProfileConverter::toDto);
     }
 
     @Override
-    public Mono<Profile> update(final Long id, final String email) {
+    public Mono<ProfileDto> update(final Long id, final String email) {
         return this.profileRepository
                 .findById(id)
-                .map(p -> Profile.builder().id(p.getId()).email(email))
                 .flatMap(this.profileRepository::save)
-                .map(ProfileConverter::convert);
+                .map(ProfileConverter::toDto);
     }
 
     @Override

@@ -1,19 +1,18 @@
 package com.bordozer.flux.service;
 
-import com.bordozer.flux.dto.Profile;
-import org.reactivestreams.Publisher;
+import com.bordozer.flux.dto.ProfileDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface ProfileService {
 
-    Flux<Profile> all();
+    Flux<ProfileDto> all();
 
-    Mono<Profile> findById(Long id);
+    Mono<ProfileDto> findById(Long id);
 
-    Mono<Profile> create(String email);
+    Mono<ProfileDto> create(String email);
 
-    Mono<Profile> update(Long id, String email);
+    Mono<ProfileDto> update(Long id, String email);
 
     Mono<Boolean> delete(Long id);
 }

@@ -1,6 +1,6 @@
 package com.bordozer.flux.converter;
 
-import com.bordozer.flux.dto.Profile;
+import com.bordozer.flux.dto.ProfileDto;
 import com.bordozer.flux.entity.ProfileEntity;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ProfileConverter {
 
-    public static Profile convert(final String email) {
-        return Profile.builder()
-                .email(email)
-                .build();
+    public static ProfileEntity toEntity(final String email) {
+        final var entity = new ProfileEntity();
+        entity.setEmail(email);
+        return entity;
     }
 
-    public static Profile convert(final ProfileEntity entity) {
-        return Profile.builder()
+    public static ProfileDto toDto(final ProfileEntity entity) {
+        return ProfileDto.builder()
                 .id(entity.getId())
                 .email(entity.getEmail())
                 .build();
