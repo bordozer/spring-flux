@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
 
+import javax.annotation.CheckForNull;
+
 @JsonDeserialize(
         builder = ImmutableProfile.Builder.class
 )
@@ -11,7 +13,8 @@ import org.immutables.value.Value;
 @Value.Immutable
 public interface Profile {
 
-    String getI();
+    @CheckForNull
+    Long getId();
 
     String getEmail();
 
