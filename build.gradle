@@ -47,10 +47,12 @@ dependencyManagement {
 }
 
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile group: 'com.bordozer', name: 'commons', version: '3.35'
 
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'io.projectreactor', name: 'reactor-core', version: reactorVersion
     compile group: 'io.reactivex', name: 'rxjava-reactive-streams', version: reactiveStreamsVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.4.4'
 
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jacksonDatatypeVersion
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-guava', version: jacksonDatatypeVersion
