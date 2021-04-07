@@ -1,0 +1,3 @@
+rootProject.name = 'spring-flux'
+
+include 'src:main:webapp'
