@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Objects;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -32,17 +34,21 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Mono<ProfileDto> create(String email) {
+    public Mono<ProfileDto> create(final ProfileDto profile) {
         return this.profileRepository
-                .save(ProfileConverter.toEntity(email))
-                .doOnSuccess(profile -> this.publisher.publishEvent(new ProfileCreatedEvent(profile)))
+                .save(ProfileConverter.toEntity(profile))
+                .doOnSuccess(saved -> this.publisher.publishEvent(new ProfileCreatedEvent(saved)))
                 .map(ProfileConverter::toDto);
     }
 
     @Override
-    public Mono<ProfileDto> update(final Long id, final String email) {
+    public Mono<ProfileDto> update(final ProfileDto profile) {
         return this.profileRepository
-                .findById(id)
+                .findById(Objects.requireNonNull(profile.getId()))
+                .map(entity -> {
+                    entity.setEmail(profile.getEmail());
+                    return entity;
+                })
                 .flatMap(this.profileRepository::save)
                 .map(ProfileConverter::toDto);
     }

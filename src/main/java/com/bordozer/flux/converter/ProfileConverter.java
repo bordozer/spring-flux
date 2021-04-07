@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ProfileConverter {
 
-    public static ProfileEntity toEntity(final String email) {
+    public static ProfileEntity toEntity(final ProfileDto profile) {
         final var entity = new ProfileEntity();
-        entity.setEmail(email);
+        entity.setEmail(profile.getEmail());
         return entity;
     }
 

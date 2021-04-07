@@ -10,9 +10,9 @@ public interface ProfileService {
 
     Mono<ProfileDto> findById(Long id);
 
-    Mono<ProfileDto> create(String email);
+    Mono<ProfileDto> create(ProfileDto profile);
 
-    Mono<ProfileDto> update(Long id, String email);
+    Mono<ProfileDto> update(ProfileDto profile);
 
     Mono<Boolean> delete(Long id);
 }

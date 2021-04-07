@@ -39,17 +39,17 @@ public class ProfileController {
     @PostMapping
     Publisher<ResponseEntity<ProfileDto>> create(@RequestBody final ProfileDto profile) {
         return this.profileService
-                .create(profile.getEmail())
+                .create(profile)
                 .map(p -> ResponseEntity.created(URI.create("/profiles/" + p.getId()))
                         .contentType(APPLICATION_JSON)
                         .build());
     }
 
-    @PutMapping("/{id}")
-    Publisher<ResponseEntity<ProfileDto>> updateById(@PathVariable final Long id, @RequestBody final ProfileDto profile) {
+    @PutMapping
+    Publisher<ResponseEntity<ProfileDto>> updateById(@RequestBody final ProfileDto profile) {
         return Mono
                 .just(profile)
-                .flatMap(p -> this.profileService.update(id, p.getEmail()))
+                .flatMap(p -> this.profileService.update(profile))
                 .map(p -> ResponseEntity
                         .ok()
                         .contentType(APPLICATION_JSON)
