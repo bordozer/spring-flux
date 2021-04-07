@@ -40,7 +40,7 @@ public class ProfileController {
     Publisher<ResponseEntity<ProfileDto>> create(@RequestBody final ProfileDto profile) {
         return this.profileService
                 .create(profile)
-                .map(p -> ResponseEntity.created(URI.create("/profiles/" + p.getId()))
+                .map(p -> ResponseEntity.created(URI.create(String.format("/profiles/%d", p.getId())))
                         .contentType(APPLICATION_JSON)
                         .build());
     }
@@ -54,6 +54,6 @@ public class ProfileController {
     @DeleteMapping("/{id}")
     Publisher<ResponseEntity<Void>> deleteById(@PathVariable final Long id) {
         return this.profileService.delete(id)
-                .map($ -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
+                .map($ -> ResponseEntity.noContent().build());
     }
 }
