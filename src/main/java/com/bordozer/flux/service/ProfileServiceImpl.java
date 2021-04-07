@@ -17,6 +17,7 @@ public class ProfileServiceImpl implements ProfileService {
     private final ApplicationEventPublisher publisher;
     private final ProfileRepository profileRepository;
 
+    @Override
     public Mono<Profile> create(String email) {
         return this.profileRepository
                 .save(Profile.builder().email(email).build())

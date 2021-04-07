@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 @RestController
-public class DemoController {
+public class ServerSentEventController {
 
     private final Flux<ProfileCreatedEvent> events;
     private final ObjectMapper objectMapper;
 
-    public DemoController(final ProfileCreatedEventPublisher eventPublisher, final ObjectMapper objectMapper) {
+    public ServerSentEventController(final ProfileCreatedEventPublisher eventPublisher, final ObjectMapper objectMapper) {
         this.events = Flux.create(eventPublisher).share();
         this.objectMapper = objectMapper;
     }
 
-    @GetMapping(path = "/profiles", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(path = "/sse/profiles", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> profiles() {
         return this.events.map(event -> {
             try {
