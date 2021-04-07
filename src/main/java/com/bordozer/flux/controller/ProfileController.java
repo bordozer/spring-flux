@@ -4,6 +4,7 @@ import com.bordozer.flux.dto.ProfileDto;
 import com.bordozer.flux.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.reactivestreams.Publisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,8 +59,8 @@ public class ProfileController {
     }
 
     @DeleteMapping("/{id}")
-    Publisher<Void> deleteById(@PathVariable final Long id) {
-        this.profileService.delete(id);
-        return Mono.empty();
+    Publisher<ResponseEntity<Void>> deleteById(@PathVariable final Long id) {
+        return this.profileService.delete(id)
+                .map($ -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 }
