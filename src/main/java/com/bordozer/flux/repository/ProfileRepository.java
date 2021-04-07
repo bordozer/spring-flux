@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Component
 public class ProfileRepository {
 
-    private static final Map<Integer, ProfileEntity> ENTITIES = new ConcurrentHashMap<>();
+    private static final Map<Long, ProfileEntity> ENTITIES = new ConcurrentHashMap<>();
     private static final AtomicLong index = new AtomicLong(1);
 
     @SneakyThrows
@@ -24,6 +24,7 @@ public class ProfileRepository {
         if (entity.getId() == null) {
             entity.setId(index.getAndIncrement());
         }
+        ENTITIES.put(entity.getId(), entity);
         return Mono.just(entity);
     }
 

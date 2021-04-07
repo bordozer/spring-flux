@@ -1,2 +1,21 @@
 ###
 GET {{apiUrl}}/profiles
+Content-Type:application/json; charset=utf-8
+Accept:application/json
+Accept-Charset:utf-8
+
+###
+POST {{apiUrl}}/profiles
+Content-Type:application/json; charset=utf-8
+Accept:application/json
+Accept-Charset:utf-8
+
+{
+    "email": "email1@domain.com"
+}
+
+###
+GET {{apiUrl}}/profiles/1
+Content-Type:application/json; charset=utf-8
+Accept:application/json
+Accept-Charset:utf-8
