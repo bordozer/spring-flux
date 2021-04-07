@@ -19,3 +19,9 @@ GET {{apiUrl}}/profiles/1
 Content-Type:application/json; charset=utf-8
 Accept:application/json
 Accept-Charset:utf-8
+
+###
+DELETE {{apiUrl}}/profiles/1
+Content-Type:application/json; charset=utf-8
+Accept:application/json
+Accept-Charset:utf-8

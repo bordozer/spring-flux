@@ -55,7 +55,6 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Mono<Void> delete(final Long id) {
-        return this.profileRepository
-                .deleteById(id);
+        return this.profileRepository.deleteById(id);
     }
 }

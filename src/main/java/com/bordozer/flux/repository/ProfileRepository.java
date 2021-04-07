@@ -1,6 +1,7 @@
 package com.bordozer.flux.repository;
 
 import com.bordozer.flux.entity.ProfileEntity;
+import com.bordozer.flux.exception.EntityDoesNotExistException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,7 @@ public class ProfileRepository {
         log.info("About to get profile by ID");
         final var entity = ENTITIES.get(id);
         if (entity == null) {
-            throw new IllegalArgumentException(String.format("Profile with id=%s does not exist", id));
+            throw new EntityDoesNotExistException(id);
         }
         return Mono.just(entity);
     }
@@ -46,7 +47,7 @@ public class ProfileRepository {
         log.info("About to delete profile");
         final var entity = ENTITIES.remove(id);
         if (entity == null) {
-            throw new IllegalArgumentException(String.format("Profile with id=%s does not exist", id));
+            throw new EntityDoesNotExistException(id);
         }
         return Mono.empty();
     }
