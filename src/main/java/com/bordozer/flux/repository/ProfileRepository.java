@@ -5,19 +5,18 @@ import com.bordozer.flux.entity.ProfileEntity;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Component
 public class ProfileRepository {
 
     @SneakyThrows
-    public ProfileEntity save(final Profile profile) {
+    public Mono<ProfileEntity> save(final Profile profile) {
         log.info("About to save profile");
-        Thread.sleep(500);
-        log.info("About has been saved");
         final var entity = new ProfileEntity();
         entity.setId(profile.getId());
         entity.setEmail(profile.getEmail());
-        return entity;
+        return Mono.just(entity);
     }
 }

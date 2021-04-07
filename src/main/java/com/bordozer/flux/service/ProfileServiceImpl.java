@@ -20,6 +20,7 @@ public class ProfileServiceImpl implements ProfileService {
     public Mono<Profile> create(String email) {
         return this.profileRepository
                 .save(Profile.builder().email(email).build())
-                .doOnSuccess(profile -> this.publisher.publishEvent(new ProfileCreatedEvent(profile)));
+                .doOnSuccess(profile -> this.publisher.publishEvent(new ProfileCreatedEvent(profile)))
+                .map(entity -> Profile.builder().id(entity.getId()).email(entity.getEmail()).build());
     }
 }
