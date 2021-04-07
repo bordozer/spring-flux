@@ -54,9 +54,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Mono<Boolean> delete(final Long id) {
+    public Mono<Void> delete(final Long id) {
         return this.profileRepository
-                .findById(id)
-                .flatMap(p -> this.profileRepository.deleteById(p.getId()).thenReturn(p));
+                .deleteById(id);
     }
 }

@@ -14,5 +14,5 @@ public interface ProfileService {
 
     Mono<ProfileDto> update(ProfileDto profile);
 
-    Mono<Boolean> delete(Long id);
+    Mono<Void> delete(Long id);
 }
