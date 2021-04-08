@@ -17,7 +17,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class ProfileEndpointConfiguration {
 
     @Bean
-    RouterFunction<ServerResponse> routes(final ProfileHandler handler) {
+    public RouterFunction<ServerResponse> routes(final ProfileHandler handler) {
         return route(i(GET("/profiles")), handler::all)
                 .andRoute(i(GET("/profiles/{id}")), handler::getById)
                 .andRoute(i(POST("/profiles")), handler::create)
