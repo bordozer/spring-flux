@@ -45,8 +45,8 @@ public class ProfileController {
                         .build());
     }
 
-    @PutMapping
-    Publisher<ResponseEntity<ProfileDto>> updateById(@RequestBody final ProfileDto profile) {
+    @PutMapping("/{id}")
+    Publisher<ResponseEntity<ProfileDto>> updateById(@PathVariable final Long id, @RequestBody final ProfileDto profile) {
         return this.profileService.update(profile)
                 .map(ResponseEntity::ok);
     }
