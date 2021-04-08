@@ -22,28 +22,23 @@ public class ProfileController {
     private final ProfileService profileService;
 
     @GetMapping
-    Publisher<ResponseEntity<ProfileDto>> getAll() {
-        return this.profileService.all()
-                .map(ResponseEntity::ok);
+    Publisher<ProfileDto> getAll() {
+        return this.profileService.all();
     }
 
     @GetMapping("/{id}")
-    Publisher<ResponseEntity<ProfileDto>> getById(@PathVariable("id") final Long id) {
-        return this.profileService.findById(id)
-                .map(ResponseEntity::ok);
+    Publisher<ProfileDto> getById(@PathVariable("id") final Long id) {
+        return this.profileService.findById(id);
     }
 
     @PostMapping
-    Publisher<ResponseEntity<ProfileDto>> create(@RequestBody final ProfileDto profile) {
-        return this.profileService
-                .create(profile)
-                .map(ResponseEntity::ok);
+    Publisher<ProfileDto> create(@RequestBody final ProfileDto profile) {
+        return this.profileService.create(profile);
     }
 
     @PutMapping("/{id}")
-    Publisher<ResponseEntity<ProfileDto>> updateById(@PathVariable final Long id, @RequestBody final ProfileDto profile) {
-        return this.profileService.update(profile)
-                .map(ResponseEntity::ok);
+    Publisher<ProfileDto> updateById(@PathVariable final Long id, @RequestBody final ProfileDto profile) {
+        return this.profileService.update(profile);
     }
 
     @DeleteMapping("/{id}")

@@ -43,7 +43,6 @@ public class ProfileWebClient {
 
         profileFlux
                 .log()
-                .map(HttpEntity::getBody)
                 .publishOn(Schedulers.fromExecutor(executor))
                 .subscribe(System.out::println);
 
@@ -58,15 +57,14 @@ public class ProfileWebClient {
         final ExecutorService executor = Executors.newSingleThreadExecutor();
 
         // when
-        final Mono<ResponseEntity<ProfileDto>> profileMono = client.get()
+        final Mono<ProfileDto> profileMono = client.get()
                 .uri("/profiles/{id}", "1")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
-                .toEntity(ProfileDto.class);
+                .bodyToMono(ProfileDto.class);
 
         profileMono
                 .log()
-                .map(HttpEntity::getBody)
                 .publishOn(Schedulers.fromExecutor(executor))
                 .subscribe(p -> log.info("======= Profile: id={}, email=\"{}\"", p.getId(), p.getEmail()));
 
