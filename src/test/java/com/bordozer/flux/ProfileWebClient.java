@@ -1,15 +1,22 @@
 package com.bordozer.flux;
 
 import com.bordozer.flux.dto.ProfileDto;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class ProfileWebClient {
@@ -21,39 +28,50 @@ public class ProfileWebClient {
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .build();
 
+    @SneakyThrows
     @Test
     void shouldGetProfiles() {
         // given
+        final ExecutorService executor = Executors.newSingleThreadExecutor();
 
         // when
-        final Flux<ProfileDto> profileFlux = client.get()
+        final Mono<ResponseEntity<ProfileDto>> profileFlux = client.get()
                 .uri("/profiles")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
-                .bodyToFlux(ProfileDto.class);
+                .toEntity(ProfileDto.class);
 
-        final Disposable subscribe = profileFlux
+        profileFlux
                 .log()
-                .subscribe(p -> log.info("======= Profile: id={}, email=\"{}\"", p.getId(), p.getEmail()));
+                .map(HttpEntity::getBody)
+                .publishOn(Schedulers.fromExecutor(executor))
+                .subscribe(System.out::println);
 
         // then
+        executor.awaitTermination(2, TimeUnit.SECONDS);
     }
 
+    @SneakyThrows
     @Test
     void shouldGetProfile() {
         // given
+        final ExecutorService executor = Executors.newSingleThreadExecutor();
 
         // when
-        final Mono<ProfileDto> profileMono = client.get()
+        final Mono<ResponseEntity<ProfileDto>> profileMono = client.get()
                 .uri("/profiles/{id}", "1")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
-                .bodyToMono(ProfileDto.class);
+                .toEntity(ProfileDto.class);
 
         profileMono
                 .log()
+                .map(HttpEntity::getBody)
+                .publishOn(Schedulers.fromExecutor(executor))
                 .subscribe(p -> log.info("======= Profile: id={}, email=\"{}\"", p.getId(), p.getEmail()));
-        profileMono.block();
 
         // then
+        executor.awaitTermination(2, TimeUnit.SECONDS);
     }
 
     @Test
