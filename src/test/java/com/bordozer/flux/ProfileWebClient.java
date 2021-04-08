@@ -35,16 +35,16 @@ public class ProfileWebClient {
         final ExecutorService executor = Executors.newSingleThreadExecutor();
 
         // when
-        final Mono<ResponseEntity<ProfileDto>> profileFlux = client.get()
+        final Flux<ProfileDto> profileFlux = client.get()
                 .uri("/profiles")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
-                .toEntity(ProfileDto.class);
+                .bodyToFlux(ProfileDto.class);
 
         profileFlux
                 .log()
                 .publishOn(Schedulers.fromExecutor(executor))
-                .subscribe(System.out::println);
+                .subscribe(p -> log.info("======= Profile: id={}, email=\"{}\"", p.getId(), p.getEmail()));
 
         // then
         executor.awaitTermination(2, TimeUnit.SECONDS);
