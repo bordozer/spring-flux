@@ -1,4 +1,4 @@
-package com.bordozer.flux.event;
+package com.bordozer.flux.reactive;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;

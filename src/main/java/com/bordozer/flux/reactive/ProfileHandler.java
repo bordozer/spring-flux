@@ -1,4 +1,4 @@
-package com.bordozer.flux.config;
+package com.bordozer.flux.reactive;
 
 import com.bordozer.flux.dto.ProfileDto;
 import com.bordozer.flux.service.ProfileService;

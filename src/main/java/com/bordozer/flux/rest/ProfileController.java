@@ -1,4 +1,4 @@
-package com.bordozer.flux.controller;
+package com.bordozer.flux.rest;
 
 import com.bordozer.flux.dto.ProfileDto;
 import com.bordozer.flux.service.ProfileService;

@@ -2,7 +2,7 @@ package com.bordozer.flux.service;
 
 import com.bordozer.flux.converter.ProfileConverter;
 import com.bordozer.flux.dto.ProfileDto;
-import com.bordozer.flux.event.ProfileCreatedEvent;
+import com.bordozer.flux.reactive.ProfileCreatedEvent;
 import com.bordozer.flux.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

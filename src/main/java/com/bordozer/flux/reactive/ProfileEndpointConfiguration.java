@@ -1,4 +1,4 @@
-package com.bordozer.flux.config;
+package com.bordozer.flux.reactive;
 
 import com.bordozer.flux.utils.CaseInsensitiveRequestPredicate;
 import org.springframework.context.annotation.Bean;

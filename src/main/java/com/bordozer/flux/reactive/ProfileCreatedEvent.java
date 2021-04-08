@@ -1,4 +1,4 @@
-package com.bordozer.flux.event;
+package com.bordozer.flux.reactive;
 
 import com.bordozer.flux.entity.ProfileEntity;
 import org.springframework.context.ApplicationEvent;

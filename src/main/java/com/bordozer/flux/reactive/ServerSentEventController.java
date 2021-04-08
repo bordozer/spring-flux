@@ -1,7 +1,5 @@
-package com.bordozer.flux.controller;
+package com.bordozer.flux.reactive;
 
-import com.bordozer.flux.event.ProfileCreatedEvent;
-import com.bordozer.flux.event.ProfileCreatedEventPublisher;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
