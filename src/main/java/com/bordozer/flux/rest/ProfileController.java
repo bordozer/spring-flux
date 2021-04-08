@@ -27,22 +27,22 @@ public class ProfileController {
     private final ProfileService profileService;
 
     @GetMapping
-    Publisher<ProfileDto> getAll() {
-        return this.profileService.all();
+    Publisher<ResponseEntity<ProfileDto>> getAll() {
+        return this.profileService.all()
+                .map(ResponseEntity::ok);
     }
 
     @GetMapping("/{id}")
-    Publisher<ProfileDto> getById(@PathVariable("id") final Long id) {
-        return this.profileService.findById(id);
+    Publisher<ResponseEntity<ProfileDto>> getById(@PathVariable("id") final Long id) {
+        return this.profileService.findById(id)
+                .map(ResponseEntity::ok);
     }
 
     @PostMapping
     Publisher<ResponseEntity<ProfileDto>> create(@RequestBody final ProfileDto profile) {
         return this.profileService
                 .create(profile)
-                .map(p -> ResponseEntity.created(URI.create(String.format("/profiles/%d", p.getId())))
-                        .contentType(APPLICATION_JSON)
-                        .build());
+                .map(ResponseEntity::ok);
     }
 
     @PutMapping("/{id}")
