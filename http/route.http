@@ -9,7 +9,7 @@ GET {{apiUrl}}/route/profiles/1
 POST {{apiUrl}}/route/profiles
 
 {
-    "email": "email1@domain.com"
+    "email": "email2@domain.com"
 }
 
 ### GET ALL
