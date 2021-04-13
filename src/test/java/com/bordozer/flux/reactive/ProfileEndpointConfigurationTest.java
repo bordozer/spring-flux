@@ -7,18 +7,27 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
 
+import static com.bordozer.flux.ProfileWebClient.BASE_URL;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class ProfileEndpointConfigurationTest {
+
+    private static final ProfileDto PROFILE = ProfileDto.builder()
+            .id(1023L)
+            .email("some@email.com")
+            .build();
 
     @Autowired
     private ProfileEndpointConfiguration profileEndpointConfiguration;
@@ -29,24 +38,19 @@ class ProfileEndpointConfigurationTest {
     private ProfileService profileService;
 
     @Test
-    public void givenEmployeeId_whenGetEmployeeById_thenCorrectEmployee() {
+    public void should() {
         final WebTestClient client = WebTestClient
                 .bindToRouterFunction(profileEndpointConfiguration.routes(profileHandler))
                 .build();
 
-        final ProfileDto profile = ProfileDto.builder()
-                .id(1023L)
-                .email("some@email.com")
-                .build();
-
-        when(profileService.findById(1023L)).thenReturn(Mono.just(profile));
+        when(profileService.findById(1023L)).thenReturn(Mono.just(PROFILE));
 
         client.get()
-                .uri("/profiles1/{id}", 1023L)
+                .uri("/profiles/{id}", 1023L)
                 .exchange()
                 .expectStatus()
                 .isOk()
                 .expectBody(ProfileDto.class)
-                .isEqualTo(profile);
+                .isEqualTo(PROFILE);
     }
 }
