@@ -14,7 +14,15 @@ spring:
       on-profile: dev
   jpa:
     database: POSTGRESQL
-  datasource:
-    url: jdbc:postgresql://localhost:5432/reactive_db
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/reactive_db
     username: bsafe
     password: bsafe
+    pool:
+      enabled: true
+      initial-size: 10
+      max-idle-time: 1m
+      max-size: 30
+  data:
+    r2dbc:
+      repositories.enabled: true
