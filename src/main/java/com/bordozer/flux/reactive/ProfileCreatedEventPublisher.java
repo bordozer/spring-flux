@@ -20,7 +20,7 @@ public class ProfileCreatedEventPublisher implements ApplicationListener<Profile
 
     @Override
     public void accept(final FluxSink<ProfileCreatedEvent> sink) {
-        this.executor.execute(() -> {
+        executor.execute(() -> {
             while (true)
                 try {
                     final ProfileCreatedEvent event = queue.take();
@@ -33,6 +33,6 @@ public class ProfileCreatedEventPublisher implements ApplicationListener<Profile
 
     @Override
     public void onApplicationEvent(final ProfileCreatedEvent event) {
-        this.queue.offer(event);
+        queue.offer(event);
     }
 }

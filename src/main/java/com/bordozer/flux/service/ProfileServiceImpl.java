@@ -35,26 +35,26 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Mono<ProfileDto> create(final ProfileDto profile) {
-        return this.profileRepository
+        return profileRepository
                 .save(ProfileConverter.toEntity(profile))
-                .doOnSuccess(saved -> this.publisher.publishEvent(new ProfileCreatedEvent(saved)))
+                .doOnSuccess(saved -> publisher.publishEvent(new ProfileCreatedEvent(saved)))
                 .map(ProfileConverter::toDto);
     }
 
     @Override
     public Mono<ProfileDto> update(final ProfileDto profile) {
-        return this.profileRepository
+        return profileRepository
                 .findById(Objects.requireNonNull(profile.getId()))
                 .map(entity -> {
                     entity.setEmail(profile.getEmail());
                     return entity;
                 })
-                .flatMap(this.profileRepository::save)
+                .flatMap(profileRepository::save)
                 .map(ProfileConverter::toDto);
     }
 
     @Override
     public Mono<Void> delete(final Long id) {
-        return this.profileRepository.deleteById(id);
+        return profileRepository.deleteById(id);
     }
 }

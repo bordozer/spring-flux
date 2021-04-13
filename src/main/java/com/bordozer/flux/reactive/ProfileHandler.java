@@ -22,24 +22,24 @@ class ProfileHandler {
     private final ProfileService profileService;
 
     Mono<ServerResponse> all(final ServerRequest request) {
-        return defaultResponse(this.profileService.all());
+        return defaultResponse(profileService.all());
     }
 
     Mono<ServerResponse> getById(final ServerRequest request) {
-        return defaultResponse(this.profileService.findById(id(request)));
+        return defaultResponse(profileService.findById(id(request)));
     }
 
     Mono<ServerResponse> create(final ServerRequest request) {
         final Flux<ProfileDto> flux = request
                 .bodyToFlux(ProfileDto.class)
-                .flatMap(this.profileService::create);
+                .flatMap(profileService::create);
         return defaultWriteResponse(flux);
     }
 
     Mono<ServerResponse> updateById(final ServerRequest request) {
         final Flux<ProfileDto> id = request
                 .bodyToFlux(ProfileDto.class)
-                .flatMap(this.profileService::update);
+                .flatMap(profileService::update);
         return defaultResponse(id);
     }
 

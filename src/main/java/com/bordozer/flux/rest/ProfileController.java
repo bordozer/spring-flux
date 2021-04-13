@@ -23,27 +23,27 @@ public class ProfileController {
 
     @GetMapping
     Publisher<ProfileDto> getAll() {
-        return this.profileService.all();
+        return profileService.all();
     }
 
     @GetMapping("/{id}")
     Publisher<ProfileDto> getById(@PathVariable("id") final Long id) {
-        return this.profileService.findById(id);
+        return profileService.findById(id);
     }
 
     @PostMapping
     Publisher<ProfileDto> create(@RequestBody final ProfileDto profile) {
-        return this.profileService.create(profile);
+        return profileService.create(profile);
     }
 
     @PutMapping("/{id}")
     Publisher<ProfileDto> updateById(@PathVariable final Long id, @RequestBody final ProfileDto profile) {
-        return this.profileService.update(profile);
+        return profileService.update(profile);
     }
 
     @DeleteMapping("/{id}")
     Publisher<ResponseEntity<Void>> deleteById(@PathVariable final Long id) {
-        return this.profileService.delete(id)
+        return profileService.delete(id)
                 .map($ -> ResponseEntity.noContent().build());
     }
 }
