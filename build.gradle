@@ -40,8 +40,6 @@ dependencyManagement {
 dependencies {
     compile group: 'com.bordozer', name: 'commons', version: '3.35'
 
-//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '2.4.4'
-//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
 
     def jacksonDatatypeVersion = '2.9.2'
