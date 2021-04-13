@@ -18,11 +18,11 @@ public class ProfileEndpointConfiguration {
 
     @Bean
     RouterFunction<ServerResponse> routes(final ProfileHandler handler) {
-        return route(i(GET("/profiles")), handler::all)
-                .andRoute(i(GET("/profiles/{id}")), handler::getById)
-                .andRoute(i(POST("/profiles")), handler::create)
-                .andRoute(i(PUT("/profiles/{id}")), handler::updateById)
-                .andRoute(i(DELETE("/profiles/{id}")), handler::deleteById);
+        return route(i(GET("/route/profiles")), handler::all)
+                .andRoute(i(GET("/route/profiles/{id}")), handler::getById)
+                .andRoute(i(POST("/route/profiles")), handler::create)
+                .andRoute(i(PUT("/route/profiles/{id}")), handler::updateById)
+                .andRoute(i(DELETE("/route/profiles/{id}")), handler::deleteById);
     }
 
     private static RequestPredicate i(RequestPredicate target) {

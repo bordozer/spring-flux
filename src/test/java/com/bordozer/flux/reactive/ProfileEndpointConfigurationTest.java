@@ -4,18 +4,15 @@ import com.bordozer.flux.dto.ProfileDto;
 import com.bordozer.flux.service.ProfileService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
+import java.util.List;
 
 import static com.bordozer.flux.ProfileWebClient.BASE_URL;
 import static org.mockito.Mockito.when;
@@ -24,29 +21,41 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class ProfileEndpointConfigurationTest {
 
+    private static final WebTestClient WEB_TEST_CLIENT = WebTestClient
+            .bindToServer()
+            .baseUrl(BASE_URL)
+            .build();
+
     private static final ProfileDto PROFILE = ProfileDto.builder()
             .id(1023L)
             .email("some@email.com")
             .build();
 
-    @Autowired
-    private ProfileEndpointConfiguration profileEndpointConfiguration;
-    @Autowired
-    private ProfileHandler profileHandler;
-
     @MockBean
     private ProfileService profileService;
 
     @Test
-    public void should() {
-        final WebTestClient client = WebTestClient
-                .bindToRouterFunction(profileEndpointConfiguration.routes(profileHandler))
-                .build();
+    public void shouldReturnProfiles() {
+        // given
+        when(profileService.all()).thenReturn(Flux.fromIterable(Collections.singletonList(PROFILE)));
 
+        // when
+        WEB_TEST_CLIENT.get()
+                .uri("/route/profiles")
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(List.class);
+    }
+
+    @Test
+    public void shouldReturnProfile() {
+        // given
         when(profileService.findById(1023L)).thenReturn(Mono.just(PROFILE));
 
-        client.get()
-                .uri("/profiles/{id}", 1023L)
+        // when
+        WEB_TEST_CLIENT.get()
+                .uri("/route/profiles/{id}", 1023L)
                 .exchange()
                 .expectStatus()
                 .isOk()
