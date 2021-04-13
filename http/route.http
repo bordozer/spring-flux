@@ -1,6 +1,16 @@
 
 ### GET ALL
-GET {{apiUrl}}/profiles1
+GET {{apiUrl}}/route/profiles
+
+### GET ONE
+GET {{apiUrl}}/route/profiles/1
+
+### Create profile
+POST {{apiUrl}}/route/profiles
+
+{
+    "email": "email1@domain.com"
+}
 
 ### GET ALL
 GET {{apiUrl}}/sse/profiles
