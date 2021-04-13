@@ -4,6 +4,7 @@ import com.bordozer.flux.entity.ProfileEntity;
 import com.bordozer.flux.exception.EntityDoesNotExistException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -51,4 +52,11 @@ public class ProfileRepository {
         }
         return Mono.empty();
     }
+
+    /*private Publisher<? extends Connection> getConnection() {
+        final ConnectionFactory connectionFactory = ConnectionFactories.get("r2dbc:postgresql://<host>:5432/<database>");
+        final Publisher<? extends Connection> connectionPublisher = connectionFactory.create();
+        log.info("Connection created");
+        return connectionPublisher;
+    }*/
 }

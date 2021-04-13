@@ -1,0 +1,34 @@
+---
+databaseChangeLog:
+  - changeSet:
+      id:  'create-profile-sequence'
+      author:  'boris.lukianov'
+      changes:
+        - createSequence:
+            sequenceName:  'profile_sequence'
+            incrementBy:  1
+            startValue:  1
+  - changeSet:
+      id: 'create-user-profile-table'
+      author: 'boris.lukianov'
+      changes:
+        - createTable:
+            tableName: 'user_profile'
+            columns:
+              - column:
+                  name: 'id'
+                  type: integer
+                  defaultValueSequenceNext: 'profile_sequence'
+                  remarks: 'Primary key'
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: 'pk_profile'
+                    nullable: false
+              - column:
+                  name: 'email'
+                  type: varchar(255)
+                  remarks: 'User email'
+                  constraints:
+                    constraintName: 'const_email'
+                    nullable: false
+                    unique: true

@@ -41,6 +41,7 @@ dependencies {
     compile group: 'com.bordozer', name: 'commons', version: '3.35'
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     def jacksonDatatypeVersion = '2.9.2'
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jacksonDatatypeVersion
@@ -58,6 +59,10 @@ dependencies {
     compile group: 'ch.qos.logback', name: 'logback-classic'
     compile group: 'org.slf4j', name: 'jul-to-slf4j'
     compile group: 'org.slf4j', name: 'log4j-over-slf4j'
+
+    implementation 'org.liquibase:liquibase-core:4.1.1'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.18'
+//    implementation group: 'io.r2dbc', name: 'r2dbc-postgresql', version: '0.8.7.RELEASE'
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 

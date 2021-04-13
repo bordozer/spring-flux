@@ -9,4 +9,12 @@ server:
 
 ---
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    database: POSTGRESQL
+  datasource:
+    url: jdbc:postgresql://localhost:5432/reactive_db
+    username: bsafe
+    password: bsafe
