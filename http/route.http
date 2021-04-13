@@ -1,5 +1,7 @@
+
 ### GET ALL
-GET {{apiUrl}}/profiles
-Content-Type:application/json; charset=utf-8
-Accept:application/json
-Accept-Charset:utf-8
+GET {{apiUrl}}/profiles1
+
+### GET ALL
+GET {{apiUrl}}/sse/profiles
+Content-Type:text/event-stream

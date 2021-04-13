@@ -4,10 +4,8 @@ import com.bordozer.flux.dto.ProfileDto;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -21,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ProfileWebClient {
 
-    private static final String BASE_URL = "http://localhost:8099";
+    public static final String BASE_URL = "http://localhost:8099";
 
     private final WebClient client = WebClient.builder()
             .baseUrl(BASE_URL)
