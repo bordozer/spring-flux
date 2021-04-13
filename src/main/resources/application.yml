@@ -14,6 +14,10 @@ spring:
       on-profile: dev
   jpa:
     database: POSTGRESQL
+  liquibase:
+    url: jdbc:postgresql://localhost:5432/reactive_db
+    user: bsafe
+    password: bsafe
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/reactive_db
     username: bsafe
@@ -25,4 +29,5 @@ spring:
       max-size: 30
   data:
     r2dbc:
-      repositories.enabled: true
+      repositories:
+        enabled: true
