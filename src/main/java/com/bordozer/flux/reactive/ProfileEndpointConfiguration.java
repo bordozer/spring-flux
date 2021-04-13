@@ -18,7 +18,7 @@ public class ProfileEndpointConfiguration {
 
     @Bean
     public RouterFunction<ServerResponse> routes(final ProfileHandler handler) {
-        return route(i(GET("/profiles")), handler::all)
+        return route(i(GET("/profiles1")), handler::all)
                 .andRoute(i(GET("/profiles/{id}")), handler::getById)
                 .andRoute(i(POST("/profiles")), handler::create)
                 .andRoute(i(PUT("/profiles/{id}")), handler::updateById)

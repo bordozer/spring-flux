@@ -23,8 +23,8 @@ public class ServerSentEventController {
         return this.events.map(event -> {
             try {
                 return objectMapper.writeValueAsString(event) + "\n\n";
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
+            } catch (final JsonProcessingException ex) {
+                throw new RuntimeException(ex);
             }
         });
     }

@@ -21,12 +21,12 @@ class ProfileHandler {
 
     private final ProfileService profileService;
 
-    Mono<ServerResponse> getById(final ServerRequest r) {
-        return defaultResponse(this.profileService.findById(id(r)));
+    Mono<ServerResponse> all(final ServerRequest request) {
+        return defaultResponse(this.profileService.all());
     }
 
-    Mono<ServerResponse> all(final ServerRequest r) {
-        return defaultResponse(this.profileService.all());
+    Mono<ServerResponse> getById(final ServerRequest request) {
+        return defaultResponse(this.profileService.findById(id(request)));
     }
 
     Mono<ServerResponse> create(final ServerRequest request) {
@@ -36,14 +36,15 @@ class ProfileHandler {
         return defaultWriteResponse(flux);
     }
 
-    Mono<ServerResponse> updateById(final ServerRequest r) {
-        final Flux<ProfileDto> id = r.bodyToFlux(ProfileDto.class)
+    Mono<ServerResponse> updateById(final ServerRequest request) {
+        final Flux<ProfileDto> id = request
+                .bodyToFlux(ProfileDto.class)
                 .flatMap(this.profileService::update);
         return defaultResponse(id);
     }
 
-    Mono<ServerResponse> deleteById(final ServerRequest r) {
-        return noContentResponse();
+    Mono<ServerResponse> deleteById(final ServerRequest request) {
+        return ServerResponse.noContent().build();
     }
 
     private static Mono<ServerResponse> defaultWriteResponse(final Publisher<ProfileDto> profiles) {
@@ -61,10 +62,6 @@ class ProfileHandler {
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(profiles, ProfileDto.class);
-    }
-
-    private static Mono<ServerResponse> noContentResponse() {
-        return ServerResponse.noContent().build();
     }
 
     private static Long id(final ServerRequest r) {
